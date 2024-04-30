@@ -1,14 +1,8 @@
 import dash
-from dash import Dash, html, dcc # components we are going to use
+from dash import html, dcc
 import plotly.express as px
 import pandas as pd
-import numpy as np
-from matplotlib import pyplot as plt
-import seaborn as sns
-import statsmodels.formula.api as sm
 import plotly.graph_objects as go
-
-
 
 #image_path = "san_fransisco_gay_choir.jpg"
 image_path = "https://imgs.classicfm.com/images/243259?crop=16_9&width=660&relax=1&format=webp&signature=Eapm15AinBBggMkZ3_pTd_Lhxws="
@@ -59,23 +53,23 @@ deaths_new_cases.drop(deaths_new_cases[deaths_new_cases['Entity']== 'Northern Ir
 # renaming 'Micronesia (country)' to 'Micronesia'
 deaths_new_cases['Entity'] = deaths_new_cases['Entity'].replace({'Micronesia (country)': 'Micronesia'})
 
-# fig1 = px.choropleth(deaths_new_cases, 
-#                     locations='Code',
-#                     locationmode='ISO-3',
-#                     color='Deaths',
-#                     hover_name='Entity',
-#                     animation_frame='Year',
-#                     range_color=(0, 50_000),
-#                     #title='HIV-related deaths by country and year',
-#                     color_continuous_scale='rdbu_r')
+fig1 = px.choropleth(deaths_new_cases, 
+                    locations='Code',
+                    locationmode='ISO-3',
+                    color='Deaths',
+                    hover_name='Entity',
+                    animation_frame='Year',
+                    range_color=(0, 50_000),
+                    #title='HIV-related deaths by country and year',
+                    color_continuous_scale='rdbu_r')
                    
-# fig1.layout.width = 1000
-# fig1.layout.height = 800
-# fig1.update_layout(updatemenus=[dict(type="buttons",
-#                                   buttons=[dict(#label="Play",
-#                                                 method="animate",
-#                                                 args=[None, {"frame": {"duration": 1000}}])])])
-# fig1.show()
+fig1.layout.width = 1000
+fig1.layout.height = 800
+fig1.update_layout(updatemenus=[dict(type="buttons",
+                                  buttons=[dict(#label="Play",
+                                                method="animate",
+                                                args=[None, {"frame": {"duration": 1000}}])])])
+fig1.show()
 
 continents = pd.read_csv("./data/continents.csv", delimiter=';')
 continents.rename(columns={'country': 'Entity'}, inplace=True)
@@ -276,9 +270,9 @@ app.layout = html.Div([html.Div([
                         html.Div([html.Img(src=image_path1,  style={"margin" : "auto", "display": "block" , "width" : "60%"}),
                         html.P("San Francisco Gay Men's Chorus demonstrating impact of AIDS on the choir - May 1993. Picture: Getty" , style={"textAlign": "center" , "fontWeight":"600"})
                         ] , style = {"height":"100vh"}),
-                        # html.Div(children=[
-                        # html.H1("HIV-related deaths by country and year", style={"textAlign":"center"}),     
-                        # html.Div(dcc.Graph(id='world-map', figure=fig1) , style={"margin-left" : "20%" , "width" : "80%"}) ]),
+                        html.Div(children=[
+                        html.H1("HIV-related deaths by country and year", style={"textAlign":"center"}),     
+                        html.Div(dcc.Graph(id='world-map', figure=fig1) , style={"margin-left" : "20%" , "width" : "80%"}) ]),
                         html.Div(children=[
                         html.H1("Distribution of HIV-related deaths over years by continent", style={"textAlign":"center"}),     
                         html.Div(dcc.Graph(id='continents', figure=fig2) , style={"margin" : "auto" , "width" : "80%"}) ], style={"height" : "100vh" , "marginTop" : "300px"}),
@@ -329,4 +323,4 @@ app.layout = html.Div([html.Div([
 
 
 if __name__ == '__main__':
-    app.run_server()
+     app.run_server()
