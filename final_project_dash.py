@@ -69,7 +69,7 @@ fig1.update_layout(updatemenus=[dict(type="buttons",
                                   buttons=[dict(#label="Play",
                                                 method="animate",
                                                 args=[None, {"frame": {"duration": 1000}}])])])
-fig1.show()
+
 
 continents = pd.read_csv("./data/continents.csv", delimiter=';')
 continents.rename(columns={'country': 'Entity'}, inplace=True)
